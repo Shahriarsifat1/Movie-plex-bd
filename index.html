@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Plex BD - বাংলা মুভি, সিনেমা রিভিউ, bangla dibbing movie</title>
+    <meta name="description" content="Movie Plex BD - আপনার প্রিয় বাংলা মুভি ও সিনেমার জন্য সেরা প্ল্যাটফর্ম।  bangla dubbing movie, রিভিউ, রেটিং এবং আরো অনেক কিছু এখানে পান।">
+    <meta name="keywords" content="বাংলা মুভি, বাংলাদেশি সিনেমা, নতুন মুভি, movie plex, Movie Plex BD">
+    <link rel="canonical" href="https://www.movieplexbd.com/">
+    
+    <!-- Open Graph Meta Tags for Social Media Sharing -->
+    <meta property="og:title" content="Movie Plex BD - বাংলা মুভি ও সিনেমা রিভিউ">
+    <meta property="og:description" content="Movie Plex BD - আপনার প্রিয় বাংলা মুভি ও সিনেমার জন্য সেরা প্ল্যাটফর্ম। নতুন মুভি রিলিজ, রিভিউ, রেটিং এবং আরো অনেক কিছু এখানে পান।">
+    <meta property="og:image" content="https://www.movieplexbd.com/images/banner.jpg">
+    <meta property="og:url" content="https://www.movieplexbd.com/">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="https://www.movieplexbd.com/favicon.ico" type="image/x-icon">
+    
+    <title>Movie List</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e1e; /* Dark theme background */
+            color: #e0e0e0;
+            padding: 0;
+            margin: 0;
+        }
+        header {
+            background-color: #333;
+            padding:10px;
+            text-align: center;
+            color: #fff;
+            position:fixed;
+            top:0;
+            width:100%;
+            margin:0;
+            z-index:1;
+        }
+        
+        header h1{
+        
+        margin-bottom:10px;
+        font-family:'Helvetica',sans-serif;
+        }
+        
+        nav {
+            margin: 10px auto;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        nav a:hover {
+            background-color: #555;
+        }
+        
+        main{
+        
+        margin-top:100px;
+        
+        }
+        
+        
+        .movie-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap:5px;
+            padding: 0 5px;
+            
+        }
+        .movie-card {
+            background-color: #2a2a2a; /* Darker card background */
+            padding: 5px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 255);
+            width: 49%;
+            align-items: center;
+            box-sizing: border-box;
+            margin: 10px 0;
+            position: relative;
+            transition: all 0.3s ease;
+            border:1px solid #000;
+        }
+        .movie-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+        }
+        .movie-card img {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+            border-radius: 5px;
+            border: 0.5px solid #444;
+        }
+        .movie-info {
+            width: 100%;
+            padding: 5px;
+            color: #e0e0e0;
+        }
+        .movie-info h5 {
+            font-size: 1em;
+            margin-bottom: 5px;
+        }
+        .movie-info p {
+            margin-top:px;
+        }
+        .movie-info a {
+            color: #fff;
+            text-decoration: none;
+            background: tomato;
+            padding: 5px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 5px;
+            text-align: center;
+            width:100%;
+        }
+        .favorite-btn {
+            background: #ff0;
+            border: none;
+            padding: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+        .favorite-btn.favorited {
+            background: #f00;
+            color: #fff;
+        }
+        #loading {
+            text-align: center;
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+        #pagination {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .modal-content {
+            background-color: #2a2a2a;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            color: #e0e0e0;
+        }
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close-btn:hover {
+            color: #fff;
+        }
+        #search {
+            padding: 10px;
+            border:1px solid tomato;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            display: block;
+            background-color: #333;
+            color: #e0e0e0;
+            outline:none;
+        }
+        
+        
+       #prev,#next{
+       padding:10px;
+       background:#fff;
+       }
+       
+      .span1{
+       
+       background :red;
+       
+       }
+      .span2{
+      
+      border:1.7px solid teal;
+      
+      }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><span class="span1">MOVIE </span><span class="span2">PLEX</span></h1>
+        
+        <input type="text" id="search" placeholder="Search movies...">
+    </header>
+    
+    <main>
+    <fieldset style="border: 2px solid #ddd; margin:10px;padding: 10px; border-radius: 0 20px 0 10px;">
+    <legend style="font-weight: bold; color: #007bff;">নোটিশ</legend>
+    এখানে সকল ধরনের নতুন বাংলা ডাব ও হিন্দি মুভি পেয়ে যাবে।
+    </fieldset>
+    <div id="loading">Loading movies...</div>
+    <div id="movie-list" class="movie-list"></div>
+    <div id="pagination">
+        <button id="prev">Previous</button>
+        <button id="next">Next</button>
+    </div>
+
+    <div id="movie-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 id="modal-title"></h2>
+            <p id="modal-description"></p>
+        </div>
+    </div>
+
+</main>
+    <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+    
+    const firebaseConfig = {
+    apiKey: "AIzaSyBsz-82MDaibWnIBUpoykrZHyJW7UMedX8",
+    authDomain: "movies-bee24.firebaseapp.com",
+    databaseURL: "https://movies-bee24-default-rtdb.firebaseio.com",
+    projectId: "movies-bee24",
+    storageBucket: "movies-bee24.appspot.com",
+    messagingSenderId: "1080659811750",
+    appId: "1:1080659811750:web:c1ef7d4dacc3ab17edc367"
+    };
+    
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    
+    const movieListContainer = document.getElementById('movie-list');
+    const loadingElement = document.getElementById('loading');
+    const modal = document.getElementById('movie-modal');
+    const closeModal = document.querySelector('.close-btn');
+    let allMovies = [];
+    let currentPage = 1;
+    const itemsPerPage = 4;
+    
+    function loadMovies() {
+    loadingElement.style.display = 'block';
+    
+    const moviesRef = ref(db, 'movies');
+    onValue(moviesRef, (snapshot) => {
+    loadingElement.style.display = 'none';
+    allMovies = [];
+    movieListContainer.innerHTML = '';
+    snapshot.forEach((childSnapshot) => {
+    const movie = childSnapshot.val();
+    allMovies.push(movie);
+    });
+    paginateMovies(allMovies);
+    });
+    }
+    
+    function paginateMovies(movies) {
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const paginatedMovies = movies.slice(start, end);
+    
+    movieListContainer.innerHTML = '';
+    paginatedMovies.forEach(movie => {
+    const movieCard = document.createElement('div');
+    movieCard.className = 'movie-card';
+    
+    const movieImage = document.createElement('img');
+    movieImage.src = movie.fileURL;
+    movieImage.alt = movie.name;
+    movieImage.addEventListener('click', () => {
+    showModal(movie);
+    });
+    
+    const movieInfo = document.createElement('div');
+    movieInfo.className = 'movie-info';
+    movieInfo.innerHTML = `
+    <h5>${movie.name} (${movie.year})</h5>
+    <p><a href="${movie.downloadLink}" target="_blank">Download</a></p>
+    `;
+    
+    movieCard.appendChild(movieImage);
+    movieCard.appendChild(movieInfo);
+    movieListContainer.appendChild(movieCard);
+    });
+    }
+    
+    document.getElementById('next').addEventListener('click', () => {
+    if ((currentPage * itemsPerPage) < allMovies.length) {
+    currentPage++;
+    paginateMovies(allMovies);
+    }
+    });
+    
+    document.getElementById('prev').addEventListener('click', () => {
+    if (currentPage > 1) {
+    currentPage--;
+    paginateMovies(allMovies);
+    }
+    });
+    
+    document.getElementById('search').addEventListener('input', function(event) {
+    const query = event.target.value.toLowerCase();
+    const filteredMovies = allMovies.filter(movie =>
+    movie.name.toLowerCase().includes(query)
+    );
+    paginateMovies(filteredMovies);
+    });
+    
+    function showModal(movie) {
+    document.getElementById('modal-title').textContent = movie.name;
+    document.getElementById('modal-description').textContent = movie.description || 'No description available.';
+    modal.style.display = 'block';
+    }
+    
+    closeModal.addEventListener('click', () => {
+    modal.style.display = 'none';
+    });
+    
+    window.onclick = function(event) {
+    if (event.target == modal) {
+    modal.style.display = 'none';
+    }
+    };
+    
+    loadMovies();
+    </script>
+        </body>
+        </html>
+        
+        
+        
+        
